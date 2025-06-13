@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhythm of Code</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/eclipse.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rhythm of Code</h1>
+            <div class="controls">
+                <button id="playBtn" class="success">
+                    <i class="fas fa-play"></i> Play
+                </button>
+                <button id="stopBtn" class="error">
+                    <i class="fas fa-stop"></i> Stop
+                </button>
+                <button id="exportBtn" class="warning">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button id="saveBtn">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <button id="loadBtn">
+                    <i class="fas fa-folder-open"></i> Load
+                </button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="editor-container">
+                <div class="toolbar">
+                    <select id="languageSelect">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                    </select>
+                    <button id="formatBtn">
+                        <i class="fas fa-code"></i> Format
+                    </button>
+                    <button id="minifyBtn">
+                        <i class="fas fa-compress-alt"></i> Minify
+                    </button>
+                </div>
+                <textarea id="codeEditor"></textarea>
+                <div class="status-bar">
+                    <span id="cursorPosition">Line: 1, Column: 1</span>
+                    <span id="fileInfo">Untitled.js</span>
+                </div>
+            </div>
+            <div class="settings-panel">
+                <h2>Sound Settings</h2>
+                <div class="settings-group">
+                    <h3>General</h3>
+                    <div class="slider-container">
+                        <label for="tempoSlider">Tempo (BPM)</label>
+                        <input type="range" id="tempoSlider" min="40" max="200" value="120">
+                        <span id="tempoValue">120 BPM</span>
+                    </div>
+                    <div class="slider-container">
+                        <label for="volumeSlider">Volume</label>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="80">
+                        <span id="volumeValue">80%</span>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Instrument Mappings</h3>
+                    <div class="mapping-controls">
+                        <label for="functionInstrument">Functions</label>
+                        <select id="functionInstrument">
+                            <option value="piano">Piano</option>
+                            <option value="synth">Synth</option>
+                            <option value="guitar">Guitar</option>
+                        </select>
+                        <label for="loopInstrument">Loops</label>
+                        <select id="loopInstrument">
+                            <option value="drums">Drums</option>
+                            <option value="percussion">Percussion</option>
+                            <option value="bass">Bass</option>
+                        </select>
+                        <label for="conditionalInstrument">Conditionals</label>
+                        <select id="conditionalInstrument">
+                            <option value="synth">Synth</option>
+                            <option value="piano">Piano</option>
+                            <option value="strings">Strings</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Visualization</h3>
+                    <div class="visualization-controls">
+                        <label>
+                            <input type="checkbox" id="showWaveform" checked>
+                            Show Waveform
+                        </label>
+                        <label>
+                            <input type="checkbox" id="showSpectrum" checked>
+                            Show Spectrum
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Tools</h3>
+                    <div class="tools-grid">
+                        <button id="recordBtn" class="tool-btn">
+                            <i class="fas fa-microphone"></i>
+                            Record
+                        </button>
+                        <button id="shareBtn" class="tool-btn">
+                            <i class="fas fa-share-alt"></i>
+                            Share
+                        </button>
+                        <button id="analyzeBtn" class="tool-btn">
+                            <i class="fas fa-chart-line"></i>
+                            Analyze
+                        </button>
+                        <button id="tutorialBtn" class="tool-btn">
+                            <i class="fas fa-graduation-cap"></i>
+                            Tutorial
+                        </button>
+                        <button id="presetsBtn" class="tool-btn">
+                            <i class="fas fa-music"></i>
+                            Presets
+                        </button>
+                        <button id="collaborateBtn" class="tool-btn">
+                            <i class="fas fa-users"></i>
+                            Collaborate
+                        </button>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Advanced Features</h3>
+                    <div class="advanced-features">
+                        <label>
+                            <input type="checkbox" id="enableAI" checked>
+                            AI Code Analysis
+                        </label>
+                        <label>
+                            <input type="checkbox" id="enableAutoTune" checked>
+                            Auto-Tune
+                        </label>
+                        <label>
+                            <input type="checkbox" id="enableEffects" checked>
+                            Sound Effects
+                        </label>
+                        <div class="effects-panel" id="effectsPanel">
+                            <select id="effectType">
+                                <option value="reverb">Reverb</option>
+                                <option value="delay">Delay</option>
+                                <option value="distortion">Distortion</option>
+                                <option value="filter">Filter</option>
+                            </select>
+                            <div class="slider-container">
+                                <label for="effectIntensity">Effect Intensity</label>
+                                <input type="range" id="effectIntensity" min="0" max="100" value="50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Templates -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <h3>Share Your Code Music</h3>
+            <div class="share-options">
+                <button class="share-btn" data-platform="github">
+                    <i class="fab fa-github"></i> GitHub
+                </button>
+                <button class="share-btn" data-platform="twitter">
+                    <i class="fab fa-twitter"></i> Twitter
+                </button>
+                <button class="share-btn" data-platform="soundcloud">
+                    <i class="fab fa-soundcloud"></i> SoundCloud
+                </button>
+            </div>
+            <div class="share-link">
+                <input type="text" id="shareLink" readonly>
+                <button id="copyLink">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="analyzeModal">
+        <div class="modal-content">
+            <h3>Code Analysis</h3>
+            <div class="analysis-results">
+                <div class="analysis-section">
+                    <h4>Code Structure</h4>
+                    <div id="structureChart"></div>
+                </div>
+                <div class="analysis-section">
+                    <h4>Musical Patterns</h4>
+                    <div id="patternChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="tutorialModal">
+        <div class="modal-content">
+            <h3>Interactive Tutorial</h3>
+            <div class="tutorial-content">
+                <div class="tutorial-step" data-step="1">
+                    <h4>Welcome to Rhythm of Code!</h4>
+                    <p>Learn how to turn your code into music.</p>
+                </div>
+                <!-- More tutorial steps will be added dynamically -->
+            </div>
+            <div class="tutorial-controls">
+                <button id="prevStep">Previous</button>
+                <button id="nextStep">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="presetsModal">
+        <div class="modal-content">
+            <h3>Musical Presets</h3>
+            <div class="presets-grid">
+                <div class="preset-card" data-preset="classical">
+                    <h4>Classical</h4>
+                    <p>Orchestral arrangement</p>
+                </div>
+                <div class="preset-card" data-preset="electronic">
+                    <h4>Electronic</h4>
+                    <p>Synth-based sounds</p>
+                </div>
+                <div class="preset-card" data-preset="jazz">
+                    <h4>Jazz</h4>
+                    <p>Swing and improvisation</p>
+                </div>
+                <div class="preset-card" data-preset="rock">
+                    <h4>Rock</h4>
+                    <p>Guitar and drums</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="collaborateModal">
+        <div class="modal-content">
+            <h3>Collaborative Session</h3>
+            <div class="collaboration-options">
+                <button id="createSession">Create Session</button>
+                <button id="joinSession">Join Session</button>
+            </div>
+            <div class="session-info" style="display: none;">
+                <h4>Session Details</h4>
+                <p>Session ID: <span id="sessionId"></span></p>
+                <p>Participants: <span id="participantCount">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/foldcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/foldgutter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/selection/active-line.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 

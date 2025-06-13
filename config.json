@@ -1,0 +1,34 @@
+{
+    "server": {
+        "port": 3000,
+        "host": "localhost"
+    },
+    "audio": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitDepth": 16
+    },
+    "antlr": {
+        "grammarPath": "src/grammars",
+        "outputPath": "src/grammars/generated"
+    },
+    "editor": {
+        "defaultLanguage": "javascript",
+        "theme": "monokai",
+        "fontSize": 16
+    },
+    "soundMappings": {
+        "function": {
+            "instrument": "piano",
+            "octave": 4
+        },
+        "loop": {
+            "instrument": "drums",
+            "pattern": "basic"
+        },
+        "conditional": {
+            "instrument": "synth",
+            "octave": 3
+        }
+    }
+} 

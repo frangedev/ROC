@@ -1,0 +1,33 @@
+{
+  "name": "rhythm-of-code",
+  "version": "1.0.0",
+  "description": "Transform source code into rhythmic musical patterns",
+  "main": "src/server/index.js",
+  "scripts": {
+    "start": "node src/server/index.js",
+    "dev": "nodemon src/server/index.js",
+    "test": "jest",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "antlr4": "^4.9.3",
+    "express": "^4.18.2",
+    "codemirror": "^5.65.2",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "babel-loader": "^9.1.2",
+    "jest": "^29.5.0",
+    "nodemon": "^3.0.1",
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+} 
